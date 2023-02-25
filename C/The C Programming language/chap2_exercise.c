@@ -34,10 +34,10 @@ char* any(char* s1[], char* s2[]) {
 }
 
 // Exercise 2.6 - Setting bits at a position n
-unsigned setbits(unsigned x, int p, int n, unsigned y) {
+int setbits(unsigned x, int p, int n, unsigned y) {
+    int mask = ~(~0 << n);
     int shift = p + 1 - n;
-    unsigned right_n_1 = ~(~0 << n);
-    return x & ~(right_n_1 << shift) | (right_n_1 << shift);
+    return x & ~(mask << shift) | (y & mask) << shift;
 }
 
 // int main(void)
