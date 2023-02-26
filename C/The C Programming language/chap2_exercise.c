@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-// 2-4
+// Exercise 2-4
 void squeeze(char s1[], char s2[]) {
     int i, j;
     for (i = j =0; s1[i] != '\0'; i++) {
@@ -21,12 +21,12 @@ void squeeze(char s1[], char s2[]) {
     s1[j] = '\0';
 }
 
-// 2-5
+// Exercise 2-5 - return the first location in the string s1 comparing s2
 char* any(char* s1[], char* s2[]) {
     int i;
-    for (i = 0; s1[i] != '\0'; i++) {
-        for (int j = 0; s2[j] != '\0'; j++) {
-            if (s1[i] == s2[j])
+    for (i = 0; *s1[i] != '\0'; i++) {
+        for (int j = 0; *s2[j] != '\0'; j++) {
+            if (*s1[i] == *s2[j])
                 return s1[i];
         }
     }
@@ -39,6 +39,27 @@ int setbits(unsigned x, int p, int n, unsigned y) {
     int shift = p + 1 - n;
     return x & ~(mask << shift) | (y & mask) << shift;
 }
+
+// Exercise 2.7 - Setting bits at a position n Inverted
+int invert(unsigned x, int p, int n) {
+    int mask = ~(~0 << n);
+    int shift = p + 1 - n;
+    return x ^ (mask << shift);
+}
+
+// Exercise 2.9 - two’s complement number system
+int bitcount(unsigned x) {
+    int i;
+    for (i = 0; x != 0; x &= x - 1)
+        ++i;
+    return i;
+}
+
+// Exercise 2.10 - upper case letters to lower case
+int lower(char c) {
+    return (c >= 'A' && c <= 'Z') ? c + 'a' - 'A' : c;
+}
+
 
 // int main(void)
 // {
