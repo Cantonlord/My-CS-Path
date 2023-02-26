@@ -60,77 +60,76 @@ int lower(char c) {
     return (c >= 'A' && c <= 'Z') ? c + 'a' - 'A' : c;
 }
 
+int main(void)
+{
+  char *leftstr[] =
+  {
+    "",
+    "a",
+    "antidisestablishmentarianism",
+    "beautifications",
+    "characteristically",
+    "deterministically",
+    "electroencephalography",
+    "familiarisation",
+    "gastrointestinal",
+    "heterogeneousness",
+    "incomprehensibility",
+    "justifications",
+    "knowledgeable",
+    "lexicographically",
+    "microarchitectures",
+    "nondeterministically",
+    "organizationally",
+    "phenomenologically",
+    "quantifications",
+    "representationally",
+    "straightforwardness",
+    "telecommunications",
+    "uncontrollability",
+    "vulnerabilities",
+    "wholeheartedly",
+    "xylophonically", /* if there is such a word :-) */
+    "youthfulness",
+    "zoologically"
+  };
+  char *rightstr[] =
+  {
+    "",
+    "a",
+    "the",
+    "quick",
+    "brown",
+    "dog",
+    "jumps",
+    "over",
+    "lazy",
+    "fox",
+    "get",
+    "rid",
+    "of",
+    "windows",
+    "and",
+    "install",
+    "linux"
+  };
 
-// int main(void)
-// {
-//   char *leftstr[] =
-//   {
-//     "",
-//     "a",
-//     "antidisestablishmentarianism",
-//     "beautifications",
-//     "characteristically",
-//     "deterministically",
-//     "electroencephalography",
-//     "familiarisation",
-//     "gastrointestinal",
-//     "heterogeneousness",
-//     "incomprehensibility",
-//     "justifications",
-//     "knowledgeable",
-//     "lexicographically",
-//     "microarchitectures",
-//     "nondeterministically",
-//     "organizationally",
-//     "phenomenologically",
-//     "quantifications",
-//     "representationally",
-//     "straightforwardness",
-//     "telecommunications",
-//     "uncontrollability",
-//     "vulnerabilities",
-//     "wholeheartedly",
-//     "xylophonically", /* if there is such a word :-) */
-//     "youthfulness",
-//     "zoologically"
-//   };
-//   char *rightstr[] =
-//   {
-//     "",
-//     "a",
-//     "the",
-//     "quick",
-//     "brown",
-//     "dog",
-//     "jumps",
-//     "over",
-//     "lazy",
-//     "fox",
-//     "get",
-//     "rid",
-//     "of",
-//     "windows",
-//     "and",
-//     "install",
-//     "linux"
-//   };
+  char buffer[32];
+  size_t numlefts = sizeof leftstr / sizeof leftstr[0];
+  size_t numrights = sizeof rightstr / sizeof rightstr[0];
+  size_t left = 0;
+  size_t right = 0;
 
-//   char buffer[32];
-//   size_t numlefts = sizeof leftstr / sizeof leftstr[0];
-//   size_t numrights = sizeof rightstr / sizeof rightstr[0];
-//   size_t left = 0;
-//   size_t right = 0;
+  for(left = 0; left < numlefts; left++)
+  {
+    for(right = 0; right < numrights; right++)
+    {
+      strcpy(buffer, leftstr[left]);
 
-//   for(left = 0; left < numlefts; left++)
-//   {
-//     for(right = 0; right < numrights; right++)
-//     {
-//       strcpy(buffer, leftstr[left]);
+      squeeze(buffer, rightstr[right]);
 
-//       squeeze(buffer, rightstr[right]);
-
-//       printf("[%s] - [%s] = [%s]\n", leftstr[left], rightstr[right], buffer);
-//     }
-//   }
-//   return 0;
-// }
+      printf("[%s] - [%s] = [%s]\n", leftstr[left], rightstr[right], buffer);
+    }
+  }
+  return 0;
+}
