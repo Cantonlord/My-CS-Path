@@ -2,7 +2,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAXLINE 100
+#define MAXLINE 1000
 
 void reverse(char s[]) {
     int c, i, j;
@@ -61,7 +61,7 @@ void itostr(int n, char s[]) {
     sign = n;
     i = 0;
     do {
-       s[i++] = abs(n % 10) + '0'; 
+       s[i++] = abs(n % 10) + '0'; // n is a negative value, need to us abs()
     } while ((n /= 10) != 0); // The result of divison between two integers will only take the integer part.
     if (sign < 0) 
         s[i++] = '-';
@@ -69,6 +69,45 @@ void itostr(int n, char s[]) {
     reverse(s);
 }
 
+// Exercise 3.5 - function itob, converts a integer into a string
+void itob(int n, char s[], int base) {
+    int i, j, sign;
+    i = 0;
+
+    if ((sign = n) < 0)
+        n = -n;
+    do {
+        j = n % base;
+        s[i++] = (j <= 9) ? j + '0' : j - 10 + 'a';
+    } while ((n /= base) > 0);
+
+    if (sign < 0)
+        s[i++] = '-';
+    s[i] = '\0';
+
+    reverse(s);
+}
+
+// Exercise 3.6 - itoa with field width
+void itostr_width(int n, char s[], int w) {
+    int i, sign;
+    i = 0;
+
+    if ((sign = n) < 0)
+        n = -n;
+
+    do {
+        s[i++] = (n % 10) + '0';
+    } while ((n /= 10) > 0);
+
+    if (sign < 0)
+        s[i++] = '-';
+    while (i < w)
+        s[i++] = ' ';
+
+    s[i] = '\0';
+    reverse(s);
+}
 
 int main() {
     // char s1[MAXLINE], s2[MAXLINE];
@@ -76,8 +115,8 @@ int main() {
     // expand(s1, s2);
     // printf("%s", s2);
     char s[1000];
-    int number = -21474838;
-    itostr(number, s);
+    int number = 214;
+    itoaa(number, s, 5);
     printf("%s", s);
     return 0;
 }
