@@ -37,6 +37,28 @@ void push(Node **head, int data) {
     *head = new;
 }
 
+void insert(Node **head, int data, int pos) {
+    if (pos == 1) {
+        push(head, data);
+        return;
+    }
+
+    Node *ptr = *head;
+    Node *new_node = malloc(sizeof(Node));
+    new_node->val = data;
+    new_node->link = NULL;
+
+    // find the node which points to the pos node
+    pos--; //index start from 0, we need to point to the pos-2 node
+    while (pos != 1) {
+        ptr = ptr->link;
+        pos--;
+    }
+
+    new_node->link = ptr->link;
+    ptr->link = new_node;
+}
+
 void print_list(Node* head) {
     if (head == NULL) {
         printf("The linked list is empty!");
