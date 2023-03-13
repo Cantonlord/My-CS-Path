@@ -20,6 +20,23 @@ Node* append(Node *head, int data) {
     return head;
 }
 
+Node* append_without_traversal(Node *tail, int data) {
+    Node *new_node = malloc(sizeof(Node));
+    new_node->val = data;
+    new_node->link = NULL;
+
+    tail->link = new_node;
+    return new_node;
+}
+
+void push(Node **head, int data) {
+    Node *new = malloc(sizeof(Node));
+    new->val = data;
+    new->link = *head;
+
+    *head = new;
+}
+
 void print_list(Node* head) {
     if (head == NULL) {
         printf("The linked list is empty!");
