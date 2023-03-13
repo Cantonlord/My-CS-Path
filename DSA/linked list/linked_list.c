@@ -108,6 +108,26 @@ void del_list(Node **head) {
     }
 }
 
+// reverse the list
+void reverse(Node **head) {
+    if (*head == NULL) {
+        printf("List is empty!");
+        return;
+    }
+
+    Node *prev, *next, *curr;
+    prev = NULL;
+    curr = *head;
+
+    while(curr != NULL) {
+        next = curr->link;
+        curr->link = prev;
+        prev = curr;
+        curr = next;
+    }
+    *head = prev;
+}
+
 void print_list(Node* head) {
     if (head == NULL) {
         printf("The linked list is empty!");
@@ -125,7 +145,13 @@ int main() {
     append(&head, 2); 
     append(&head, 3); 
     append(&head, 4);
-    insert(&head, 5, 1);
-    // delete(&head, 3);
+    insert(&head, 5, 5);
+    push(&head, 0);
+    print_list(head);
+    reverse(&head);
+    print_list(head);
+    delete(&head, 3);
+    print_list(head);
+    del_list(&head);
     print_list(head);
 }
