@@ -148,7 +148,41 @@ void print_list(Node* tail) {
 }
 
 
+int find_prompt() {
+    int n;
+    printf("Enter the value to search: ");
+    scanf("%d", &n);
+    return n;
+}
+
+int find_node(Node *tail) {
+    if (!tail)
+        return -2;
+
+    int data = find_prompt();
+
+    int index = 0;
+    Node *ptr = tail->next;
+    do {
+        if (ptr->val == data)
+            return index;
+        ptr = ptr->next;
+        index++;
+    } while (ptr != tail->next);
+    return -1;
+}
+
+void find_result(int index) {
+    if (index == -1)
+        printf("No result found!\n");
+    else if (index == -2)
+        printf("The list is empty!\n");
+    else
+        printf("The index is %d!\n", index);
+}
+
 int main() {
+    // Node *tail = NULL;
     Node *tail = make_node(1);
     push(&tail, 2);
     push(&tail, 3);
@@ -156,7 +190,9 @@ int main() {
     append(&tail, 5);
     insert_after(&tail, 6, 1);
     print_list(tail);
-    // cut(&tail);
+    cut(&tail);
     del_node(&tail, 3);
     print_list(tail);
+    find_result(find_node(tail));
+    return 0;
 }
