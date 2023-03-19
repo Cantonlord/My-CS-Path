@@ -16,34 +16,31 @@ Node* make_node(int data) {
     return new;
 }
 
-void push(Node **head, int data) {
+void push(Node **head, int data) { /*O(1)*/
     Node *new = make_node(data);
-
     if (!*head) {
         *head = new;
         return;
     }
-
     new->next = *head;
     (*head)->prev = new;
     *head = new;
 }
 
-void append(Node **head, int data) {
+void append(Node **head, int data) { /*O(n)*/
     Node *new = make_node(data);
-
     if (!*head) {
         *head = new;
         return;
     }
-
     Node *ptr = *head;
-    while (ptr->next) ptr = ptr->next;
+    while (ptr->next)
+        ptr = ptr->next;
     ptr->next = new;
     new->prev = ptr;
 }
 
-void insert(Node **head, int data, int pos) {
+void insert(Node **head, int data, int pos) { /*O(n)*/
     if (pos == 1) {
         push(head, data);
         return;
@@ -84,7 +81,7 @@ void create_list(Node **head) {
     }
 }
 
-int pop(Node **head) {
+int pop(Node **head) { /*O(n)*/
     int val;
     Node *ptr = *head;
     if (ptr == NULL) {
@@ -102,7 +99,7 @@ int pop(Node **head) {
     return val;
 }
 
-void del_node(Node **head, int pos) {
+void del_node(Node **head, int pos) { /*O(n)*/
     Node *ptr = *head;
     if (ptr == NULL) {
         printf("WARNING: List is already empty!\n");
@@ -144,7 +141,7 @@ void reverse(Node **head) {
         p2->prev = p2->next;
         p2->next = p1;
         p1 = p2;
-        p2 = p2->prev;
+        p2 = p2->prev; 
     }
     *head = p1;
 }

@@ -143,6 +143,10 @@ void del_node(Node **tail, int pos) {
     Node *ptr = (*tail)->next;
     while (pos > 1) { //之所以这里是1，因为ptr要直接指向del_node而不是前一个
         ptr = ptr->next;
+        if (ptr == (*tail)->next) {
+            printf("WARNING: Position is out of range!\n");
+            return;
+        }
         pos--;
     }
     Node *prev_node = ptr->prev;

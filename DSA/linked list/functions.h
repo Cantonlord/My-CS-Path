@@ -7,6 +7,8 @@ typedef struct node {
     struct node *prev;
 }Node;
 
+// Functions for Doubly linked list
+
 
 // Functions for Circular doubly linked list
 Node* make_node(int data);
