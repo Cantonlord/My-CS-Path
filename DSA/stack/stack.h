@@ -4,9 +4,9 @@
 
 int isFull();
 int isEmpty();
-void push(float data);
-float pop();
-float top_val();
+void push(char data);
+char pop();
+char top();
 
 
 #endif
