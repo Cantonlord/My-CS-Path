@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "circular_queue.h"
 
 typedef struct queue {
     char *arr;
@@ -9,7 +10,7 @@ typedef struct queue {
     int rear;
 } Queue;
 
-Queue* CreateQueue(int capacity) {
+Queue* createQueue(int capacity) {
     Queue* obj = malloc(sizeof(Queue));
     obj->arr = calloc(capacity, sizeof(char));
     obj->capacity = capacity;
@@ -26,10 +27,18 @@ bool isFull(Queue *obj) {
 }
 
 int front(Queue *obj) {
+    if (isEmpty(obj)) {
+        printf("ERROR: Queue is empty\n");
+        exit(1);
+    }
     return obj->arr[obj->front];
 }
 
 int rear(Queue *obj) {
+    if (isEmpty(obj)) {
+        printf("ERROR: Queue is empty\n");
+        exit(1);
+    }
     return obj->arr[obj->rear];
 }
 
@@ -67,13 +76,4 @@ void printQueue(Queue *obj) {
     }
     for (int i = 0; i < obj->rear + 1; i++)
         printf("%c ", obj->arr[i]);
-}
-
-int main() {
-    Queue *q = CreateQueue(10);
-    enQueue(q, 'a');
-    enQueue(q, '2');
-    enQueue(q, 'A');
-    printf("%d, %d\n", front(q), rear(q));
-    printQueue(q);
 }

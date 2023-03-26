@@ -2,59 +2,68 @@
 #include <stdlib.h>
 #include "queue.h"
 
-Node *head = NULL;
-Node *tail = NULL;
+typedef struct node {
+    int data;
+    struct node *next;
+} Node;
 
-Node* make_node(int data) {
+typedef struct queue {
+    Node *head, *tail;
+} Queue;
+
+bool isFull(Queue *obj) {
+    return obj->tail->next == obj->head;
+}
+
+bool isEmpty(Queue *obj) {
+    return obj->head == NULL;
+}
+
+Queue* createQueue() {
+    Queue *obj = malloc(sizeof(Queue));
+    obj->head = obj->tail = NULL;
+    return obj;
+}
+
+void enQueue(Queue *obj, int data) {
     Node *new = malloc(sizeof(Node));
     new->data = data;
     new->next = NULL;
-    return new;
-}
-
-void enqueue(int data) {
-    Node *new = make_node(data);
-    if (!head) {
-        head = tail = new;
+    if (isEmpty(obj)) {
+        obj->head = obj->tail = new;
         return;
     }
-    tail->next = new;
-    tail = new;
+    obj->tail->next = new;
+    obj->tail = new;
 }
 
-void dequeue() {
-    if (!head) {
-        printf("ERROR: The queue is empty");
-        return;
+void deQueue(Queue *obj) {
+    if (isEmpty(obj)) {
+        printf("ERROR: The queue is empty\n");
+        exit(1);
     }
-    Node *temp = head;
-    if (head == tail)
-        head = tail = NULL;
+    Node *temp = obj->head;
+    if (obj->head == obj->tail)
+        obj->head = obj->tail = NULL;
     else
-        head = head->next;
+        obj->head = obj->head->next;
     free(temp);
 }
 
-int isFull() {
-    if (tail->next == head)
-        return 1;
-    return 0;
+int front(Queue *obj) {
+    if (obj->head)
+        return obj->head->data;
+    else if (isEmpty(obj)) {
+        printf("ERROR: Queue is empty\n");
+        exit(1);
+    }
 }
 
-int isEmpty() {
-    if (head == NULL)
-        return 1;
-    return 0;
-}
-
-Node* front() {
-    if (head)
-        return head;
-    exit(1);
-}
-
-Node* rear() {
-    if (tail) 
-        return tail;
-    exit(1);
+int rear(Queue *obj) {
+    if (obj->tail) 
+        return obj->tail->data;
+    else if (isEmpty(obj)) {
+        printf("ERROR: Queue is empty\n");
+        exit(1);
+    }
 }
