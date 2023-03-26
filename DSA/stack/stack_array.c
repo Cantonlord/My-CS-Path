@@ -4,13 +4,13 @@
 #include <string.h>
 #include "stack.h"
 
-// typedef struct stack {
-//     char *arr;
-//     int capacity;
-//     int top;
-// } Stack;
+typedef struct stack {
+    char *arr;
+    int capacity;
+    int top;
+} Stack;
 
-Stack* CreateStack(int capacity) {
+Stack* createStack(int capacity) {
     Stack *obj = malloc(sizeof(Stack));
     obj->arr = calloc(capacity, sizeof(char));
     obj->capacity = capacity;
@@ -28,7 +28,7 @@ bool isEmpty(Stack *obj) {
 
 void push(Stack *obj, char data) {
     if (isFull(obj)) {
-        printf("ERROR: Stack overflow");
+        printf("ERROR: Stack overflow\n");
         return;
     }
     obj->arr[++obj->top] = data;
@@ -36,7 +36,7 @@ void push(Stack *obj, char data) {
 
 char pop(Stack *obj) {
     if (obj->top == -1) {
-        printf("ERROR: Stack is empty");
+        printf("ERROR: Stack is empty\n");
         exit(1);
     }
     char val = obj->arr[obj->top];
@@ -46,15 +46,22 @@ char pop(Stack *obj) {
 
 char top(Stack *obj) {
     if (isEmpty(obj)) {
-        printf("ERROR: Stack is empty");
+        printf("ERROR: Stack is empty\n");
         exit(1);
     }
     return obj->arr[obj->top];
 }
 
-void print(Stack *obj) {
+void freeStack(Stack *obj) {
+    if (obj == NULL)
+        printf("ERROR: Stack hasn't been created\n");
+    while (!isEmpty(obj))
+        pop(obj);
+}
+
+void printStack(Stack *obj) {
     if (isEmpty(obj)) {
-        printf("ERROR: Stack is empty");
+        printf("ERROR: Stack is empty\n");
         return;
     }
     for (int i = 0; i < obj->top + 1; i++)
@@ -69,8 +76,4 @@ bool isValid(char *str){
 			pop(S), str++;
 	}
 	return isEmpty(S);
-}
-
-int main() {
-    isValid("{[]}") ? printf("true") : printf("false");
 }
